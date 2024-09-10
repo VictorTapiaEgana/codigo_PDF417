@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: document.querySelector('#scanner-container'), // Elemento donde se mostrará la cámara
         },
         decoder: {
-            readers: ["pdf417_reader"] // Especifica que queremos leer códigos PDF417
+            readers: ["qr_reader"] // Cambiar a lector de QR
         }
     }, function(err) {
         if (err) {
@@ -22,6 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     Quagga.onDetected(function(result) {
         const code = result.codeResult.code;
         resultElement.innerText = code; // Mostrar el código detectado en la página
-        console.log('Código detectado:', code);
+        console.log('Código QR detectado:', code);
     });
 });

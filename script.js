@@ -1,27 +1,18 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', function () {
+    const codeReader = new ZXing.BrowserQRCodeReader();
+    const videoElement = document.getElementById('video');
     const resultElement = document.getElementById('result');
 
-    Quagga.init({
-        inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: document.querySelector('#scanner-container'), // Elemento donde se mostrará la cámara
-        },
-        decoder: {
-            readers: ["qr_reader"] // Cambiar a lector de QR
+    // Solicitar acceso a la cámara y comenzar el escaneo
+    codeReader.decodeFromVideoDevice(undefined, videoElement, (result, err) => {
+        if (result) {
+            resultElement.textContent = result.text; // Mostrar el resultado
+            console.log('Código QR detectado:', result.text);
         }
-    }, function(err) {
-        if (err) {
-            console.error('Error al iniciar Quagga:', err);
-            return;
+        if (err && !(err instanceof ZXing.NotFoundException)) {
+            console.error('Error en la detección:', err);
         }
-        console.log("QuaggaJS iniciado correctamente.");
-        Quagga.start();
-    });
-
-    Quagga.onDetected(function(result) {
-        const code = result.codeResult.code;
-        resultElement.innerText = code; // Mostrar el código detectado en la página
-        console.log('Código QR detectado:', code);
+    }).catch(err => {
+        console.error('Error al acceder a la cámara:', err);
     });
 });

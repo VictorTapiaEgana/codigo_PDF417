@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>Escanear código QR</h1>
-    <div id="scanner-container" style="width: 500px; height: 400px;"></div>
-    <p><strong>Código QR detectado:</strong> <span id="result"></span></p>
+    <video id="video" style="width: 100%; height: auto;"></video>
+    <p><strong>Código detectado:</strong> <span id="result"></span></p>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
     <script src="script.js"></script>
 </body>
 </html>
